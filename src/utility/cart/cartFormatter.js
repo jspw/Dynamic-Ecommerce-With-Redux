@@ -9,8 +9,6 @@ export function cartFormatter(products) {
     payableAmount += product.price * product.quantity;
   });
 
-  if (payableAmount === 0) return null;
-
   return {
     id: Date.now() + Math.random(),
     products,
