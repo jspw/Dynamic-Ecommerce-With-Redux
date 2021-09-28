@@ -1,38 +1,32 @@
-import {
-  cartActionTypes,
-} from "../../../utility/cart/cartActionTypes";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-import { useContext } from "react";
-import { CartContext } from "../../../Context/CartContext";
-import handleCart from "../../../utility/cart/cartActions";
-import * as localStore from "../../../utility/services/localStorage/localStore";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  addProduct,
+  decreaseProductQuantity,
+  increaseProductQuantity,
+} from "../../../redux/actions/cartActions";
 
 export default function CartAction({ product }) {
-  const { setCartUpdated } = useContext(CartContext);
-  const cart = localStore.getCart();
+  const dispatch = useDispatch();
 
+  const { products } = useSelector((state) => state.cart);
   return (
     <div className="flex flex-col  justify-center ">
-      {cart && cart.products[product.id] ? (
+      {products[product.id] ? (
         <div className="flex flex-row justify-between border rounded-md p-2 bg-blue-400 items-baseline">
           <button
             className="btn text-white border border-transparent hover:border-white"
-            onClick={() => {
-              handleCart(cartActionTypes.DECREASE_QUANTITY, product);
-              setCartUpdated((isModified) => !isModified);
-            }}
+            onClick={() => dispatch(decreaseProductQuantity(product.id))}
           >
             <RemoveIcon />
           </button>
           <p className="text-white font-medium">
-            {cart.products[product.id].quantity} in cart
+            {products[product.id].quantity} in cart
           </p>
           <button
-            onClick={() => {
-              handleCart(cartActionTypes.INCREASE_QUANTITY, product);
-              setCartUpdated((isModified) => !isModified);
-            }}
+            onClick={() => dispatch(increaseProductQuantity(product.id))}
             className="btn text-white border border-transparent  hover:border-white"
           >
             <AddIcon />
@@ -40,10 +34,7 @@ export default function CartAction({ product }) {
         </div>
       ) : (
         <button
-          onClick={() => {
-            handleCart(cartActionTypes.ADD_ITEM, product);
-            setCartUpdated((isModified) => !isModified);
-          }}
+          onClick={() => dispatch(addProduct(product))}
           className="btn text-blue-400 border rounded-md p-2 flex
     items-baseline justify-center space-x-2 "
         >

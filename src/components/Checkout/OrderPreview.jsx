@@ -1,5 +1,4 @@
 import { useHistory } from "react-router";
-import * as localStore from "../../utility/services/localStorage/localStore";
 
 export default function OrderPreview() {
   const history = useHistory();
@@ -8,7 +7,7 @@ export default function OrderPreview() {
     location: { order: preOrder },
   } = history;
 
-  const order = preOrder || localStore.getOrder();
+  const order = preOrder;
 
   if (!order) history.push("/");
 
@@ -25,7 +24,7 @@ export default function OrderPreview() {
         </div>
         <div className="flex flex-row justify-between space-x-2">
           <p className="text-gray-600">Sub Total : </p>
-          <p>${Math.round(order.subTotal)}</p>
+          <p>${Math.round(order.payableAmount)}</p>
         </div>
         <div className="flex flex-row justify-between space-x-2">
           <p className="text-gray-600">Discount : </p>
@@ -34,7 +33,7 @@ export default function OrderPreview() {
         <hr />
         <div className="flex flex-row justify-between space-x-2">
           <p className="text-gray-600 ">Payable Amount : </p>
-          <p className="font-semibold">${order.subTotal - order.discount}</p>
+          <p className="font-semibold">${order.payableAmount - order.discount}</p>
         </div>
       </div>
     </div>

@@ -1,11 +1,13 @@
-import { useContext } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { CartContext } from "../../Context/CartContext";
-import handleCart from "../../utility/cart/cartActions";
-import { cartActionTypes } from "../../utility/cart/cartActionTypes";
+import { useDispatch } from "react-redux";
+import {
+  decreaseProductQuantity,
+  increaseProductQuantity,
+  removeProductFromCart,
+} from "../../redux/actions/cartActions";
 
 export default function CartItem({ product }) {
-  const { setCartUpdated } = useContext(CartContext);
+  const dispatch = useDispatch();
   return (
     <div className="flex flex-row justify-between items-center m-2 p-2 shadow">
       <div className="flex flex-row space-x-2 items-center justify-around align-center">
@@ -19,7 +21,7 @@ export default function CartItem({ product }) {
           />
         </div>
 
-        <div className="space-y-1">
+        <div className="space-y-2">
           <div>
             <div className="text-sm text-gray-500 font-serif">
               {product.title}
@@ -31,21 +33,15 @@ export default function CartItem({ product }) {
           </div>
           <div className="flex flex-row space-x-2 text-sm">
             <button
-              onClick={() => {
-                handleCart(cartActionTypes.DECREASE_QUANTITY, product);
-                setCartUpdated((pre) => !pre);
-              }}
-              className="border pl-3 pr-3"
+              onClick={() => dispatch(decreaseProductQuantity(product.id))}
+              className="border text-lg pl-3 pr-3"
             >
               -
             </button>
             <div>{product.quantity}</div>
             <button
-              onClick={() => {
-                handleCart(cartActionTypes.INCREASE_QUANTITY, product);
-                setCartUpdated((pre) => !pre);
-              }}
-              className="border pl-3 pr-3"
+              onClick={() => dispatch(increaseProductQuantity(product.id))}
+              className="border text-lg pl-3 pr-3"
             >
               +
             </button>
@@ -53,12 +49,7 @@ export default function CartItem({ product }) {
         </div>
       </div>
       <div>
-        <button
-          onClick={() => {
-            handleCart(cartActionTypes.REMOVE_ITEM, product);
-            setCartUpdated((pre) => !pre);
-          }}
-        >
+        <button onClick={() => dispatch(removeProductFromCart(product.id))}>
           <i className="fa fa-trash text-red-600 p-2"></i>
         </button>
       </div>
