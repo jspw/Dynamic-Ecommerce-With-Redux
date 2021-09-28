@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CartModal from "../Cart/CartModal";
 import { useDispatch, useSelector } from "react-redux";
 import { hideModal, showModal } from "../../redux/actions/modalActions";
+import { useState } from "react";
 
 export default function NavBar() {
   const { totalProducts } = useSelector((state) => state.cart);

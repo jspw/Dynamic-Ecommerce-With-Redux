@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
-import AppRoutes from "../../Navigation/AppRoutes";
-import NavBar from "../NavBar/NavBar";
-import Footer from "../Footer/Footer";
+import AppRoutes from "./AppRoutes";
+import NavBar from "../components/NavBar/NavBar";
+import Footer from "../components/Footer/Footer";
 
 export default function Wrapper() {
   return (

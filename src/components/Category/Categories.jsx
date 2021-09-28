@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { getCategories } from "../../../utility/helpers";
+import { getCategories } from "../../utility/helpers";
 import Category from "./Category";
 export default function Categories() {
   const { products } = useSelector((state) => state.products);

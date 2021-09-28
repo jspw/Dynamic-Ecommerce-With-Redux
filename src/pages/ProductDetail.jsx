@@ -2,9 +2,9 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import CartAction from "../Products/Product/CartAction";
-import Rating from "../Rating/Rating";
-import Spinner from "../Spinner/Spinner";
+import CartAction from "../components/Products/Product/CartAction";
+import Rating from "../components/Rating/Rating";
+import Spinner from "../components/Spinner/Spinner";
 
 export default function ProductDetail() {
   const { title } = useParams();

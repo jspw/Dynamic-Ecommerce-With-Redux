@@ -1,30 +1,16 @@
-import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import Products from "../Products/Products";
-import { useSelector } from "react-redux";
 
-export default function Category() {
-  const { category } = useParams();
-  const {
-    products: allProducts,
-    error,
-    loading,
-  } = useSelector((state) => state.products);
-
-  const products = allProducts.filter(
-    (product) => product.category === category
-  );
-
+export default function Category({ name }) {
   return (
-    <div>
-      <div className=" font-medium  flex flex-row space-x-2 mt-2  ml-5 mb-2">
-        <Link to="/" className="text-black hover:text-blue-600">
-          Home
-        </Link>
-        <p className="text-blue-300">/</p>
-        <p className="text-gray-400">{category}</p>
+    <Link to={`/category/${name}`}>
+      <div className="bg-white m-2 p-4 flex flex-col justify-around items-center cursor-pointer rounded-xl w-32  h-32 shadow">
+        <div>
+          <i className="fa fa-anchor text-3xl"></i>
+        </div>
+        <div className="hover:text-blue-400 font-serif text-lg break-words text-center ">
+          {name}
+        </div>
       </div>
-      <Products products={products} loading={loading} error={error} />
-    </div>
+    </Link>
   );
 }

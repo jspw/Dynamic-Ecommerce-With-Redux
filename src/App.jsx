@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store/store";
 import { fetchProducts } from "./redux/actions/productActions";
-import Wrapper from "./components/Wrapper/Wrapper";
+import Wrapper from "./Navigation/Wrapper";
 
 export default function App() {
   useEffect(() => {

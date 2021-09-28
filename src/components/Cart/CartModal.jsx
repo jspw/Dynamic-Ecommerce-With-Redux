@@ -1,4 +1,3 @@
-import { useState } from "react";
 import CartItems from "./CartItems";
 import CancelIcon from "@mui/icons-material/Cancel";
 import LocalMallIcon from "@mui/icons-material/LocalMall";

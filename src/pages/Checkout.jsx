@@ -1,8 +1,5 @@
-import { Link } from "react-router-dom";
-import Address from "./Address";
-import OrderPreview from "./OrderPreview";
-import { useDispatch } from "react-redux";
-import { clearCart } from "../../redux/actions/cartActions";
+import Address from "../components/Checkout/Address";
+import OrderPreview from "../components/Checkout/OrderPreview";
 
 export default function Checkout() {
   return (
