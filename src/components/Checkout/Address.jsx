@@ -1,4 +1,9 @@
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { clearCart } from "../../redux/actions/cartActions";
+
 export default function Address() {
+  const dispatch = useDispatch();
   return (
     <div className="flex border flex-col justify-top items-center bg-white m-5 p-10 space-y-5 ">
       <div>
@@ -54,11 +59,20 @@ export default function Address() {
             name="zipCode"
           />
         </div>
-      </form>
 
-      <button className="btn bg-blue-400 text-white p-2 rounded font-medium">
-        Confirm Address
-      </button>
+        <div className="h-5"></div>
+
+        <Link
+          onClick={() => dispatch(clearCart())}
+          to={{
+            pathname: "/order-complete",
+            done: "done",
+          }}
+          className="btn  container bg-blue-500 text-white p-1 mt-5 shadow text-center"
+        >
+          Place Order
+        </Link>
+      </form>
     </div>
   );
 }

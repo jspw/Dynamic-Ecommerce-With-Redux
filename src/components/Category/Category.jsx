@@ -17,7 +17,7 @@ export default function Category() {
 
   return (
     <div>
-      <div className=" font-medium  flex flex-row space-x-2 mt-2 mb-2">
+      <div className=" font-medium  flex flex-row space-x-2 mt-2  ml-5 mb-2">
         <Link to="/" className="text-black hover:text-blue-600">
           Home
         </Link>

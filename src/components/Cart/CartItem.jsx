@@ -21,7 +21,7 @@ export default function CartItem({ product }) {
           />
         </div>
 
-        <div className="space-y-1">
+        <div className="space-y-2">
           <div>
             <div className="text-sm text-gray-500 font-serif">
               {product.title}
@@ -34,14 +34,14 @@ export default function CartItem({ product }) {
           <div className="flex flex-row space-x-2 text-sm">
             <button
               onClick={() => dispatch(decreaseProductQuantity(product.id))}
-              className="border pl-3 pr-3"
+              className="border text-lg pl-3 pr-3"
             >
               -
             </button>
             <div>{product.quantity}</div>
             <button
               onClick={() => dispatch(increaseProductQuantity(product.id))}
-              className="border pl-3 pr-3"
+              className="border text-lg pl-3 pr-3"
             >
               +
             </button>

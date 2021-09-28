@@ -3,30 +3,17 @@ import CartItems from "./CartItems";
 import CancelIcon from "@mui/icons-material/Cancel";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { Link } from "react-router-dom";
-import * as localStore from "../../utility/services/localStorage/localStore";
 import { useDispatch, useSelector } from "react-redux";
 import { hideModal } from "../../redux/actions/modalActions";
+import { clearCart } from "../../redux/actions/cartActions";
 
 export default function CartModal() {
   const { totalProducts, payableAmount, totalQuantity } = useSelector(
     (state) => state.cart
   );
   const { isModalVisible } = useSelector((state) => state.modal);
-  const [isPromoValid, setPromoValid] = useState(false);
 
   const dispatch = useDispatch();
-
-  function saveOrder() {
-    const orderCheckout = {
-      totalItems: totalQuantity,
-      subTotal: isPromoValid
-        ? Math.round(payableAmount) - 100
-        : Math.round(payableAmount),
-      discount: 100,
-    };
-    localStore.saveOrder(orderCheckout);
-    dispatch(hideModal);
-  }
 
   return (
     <div
@@ -37,7 +24,7 @@ export default function CartModal() {
     >
       <div className="fixed right-0 bg-white  h-full overflow-y-auto duration-500 animate-slideIn flex flex-col justify-between  sm:w-full md:w-2/5 lg:w-4/12 xl:w-1/4 ">
         <div>
-          <div className="sticky top-0 bg-gray-400 z-40 ">
+          <div className="sticky top-0 bg-gray-200 z-40 ">
             <div className="flex flex-row justify-between items-center ">
               <div className="p-4 flex flex-row items-center space-x-2">
                 <LocalMallIcon />
@@ -60,51 +47,40 @@ export default function CartModal() {
         </div>
 
         {totalProducts > 0 ? (
-          <div className="flex flex-col sticky bottom-0">
-            <div className="bg-gray-200 ">
-              <p className="text-green-500 mb-3 ml-1 mr-1 mt-2 text-center">
-                Do you have a Promo Code ?
+          <div className="flex flex-col bg-white sticky bottom-0 border-2 p-2 shadow-md">
+            <div className="flex flex-row justify-between m-2 p-1">
+              <p className="text-yellow-900 font-medium">Payable Amount : </p>
+              <p className="font-bold text-yellow-900">
+                $ {Math.round(payableAmount)}
               </p>
-              <div className="flex flex-row justify-center">
-                <input
-                  disabled={isPromoValid}
-                  placeholder="Promo Code"
-                  className="outline-none appearance-none mb-3 ml-1 mr-1 mt-2 rounded p-2 max-w-min focus:border-blue-400"
-                />
-                <div>
-                  <button
-                    onClick={() => setPromoValid(true)}
-                    className="btn bg-blue-700 text-white rounded m3-2 ml-1 mr-1 mt-2 p-2"
-                  >
-                    Go
-                  </button>
-                </div>
-              </div>
             </div>
 
-            <Link
-              onClick={saveOrder}
-              to={{
-                pathname: "/checkout",
-                order: {
-                  totalItems: totalProducts,
-                  subTotal: 0,
-                  totalProducts: isPromoValid
-                    ? Math.round(payableAmount) - 100
-                    : Math.round(payableAmount),
-                  discount: 100,
-                },
-              }}
-              className="flex flex-row justify-between btn bg-blue-400 font-semibold text-white p-3"
-            >
-              <p> Checkout</p>
-              <p className="font-bold">
-                $
-                {isPromoValid
-                  ? Math.round(payableAmount) - 100
-                  : Math.round(payableAmount)}
-              </p>
-            </Link>
+            <hr />
+
+            <div className="m-2 flex flex-row justify-between">
+              <button
+                onClick={() => dispatch(clearCart())}
+                className=" text-center font-serif text-base btn bg-red-400  text-white p-2 rounded"
+              >
+                Clear Cart
+              </button>
+              <Link
+                onClick={() => dispatch(hideModal())}
+                to={{
+                  pathname: "/checkout",
+                  order: {
+                    totalItems: totalQuantity,
+                    subTotal: 0,
+                    payableAmount: Math.round(payableAmount),
+
+                    discount: 100,
+                  },
+                }}
+                className=" text-center font-serif text-lg btn bg-blue-400  text-white p-2 rounded"
+              >
+                Checkout
+              </Link>
+            </div>
           </div>
         ) : (
           ""

@@ -14,8 +14,8 @@ export default function ProductDetail() {
   const product = products.filter((prod) => prod.title === title)[0];
 
   return product ? (
-    <div className="h-screen">
-      <div className=" font-medium  flex flex-row space-x-2 mt-2 mb-2 ">
+    <div>
+      <div className=" font-medium  flex flex-row space-x-2 mt-2  ml-5 mb-2 ">
         <Link to="/" className="text-black hover:text-blue-600">
           Home
         </Link>
