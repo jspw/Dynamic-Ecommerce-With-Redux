@@ -1,18 +1,20 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import CartItems from "./CartItems";
 import CancelIcon from "@mui/icons-material/Cancel";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { Link } from "react-router-dom";
 import * as localStore from "../../utility/services/localStorage/localStore";
-import { ModalContext } from "../../Context/ModalContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { hideModal } from "../../redux/actions/modalActions";
 
 export default function CartModal() {
   const { totalProducts, payableAmount, totalQuantity } = useSelector(
     (state) => state.cart
   );
-  const { showModal, setShowModal } = useContext(ModalContext);
+  const { isModalVisible } = useSelector((state) => state.modal);
   const [isPromoValid, setPromoValid] = useState(false);
+
+  const dispatch = useDispatch();
 
   function saveOrder() {
     const orderCheckout = {
@@ -23,14 +25,14 @@ export default function CartModal() {
       discount: 100,
     };
     localStore.saveOrder(orderCheckout);
-    setShowModal(false);
+    dispatch(hideModal);
   }
 
   return (
     <div
       id="modal"
       className={`${
-        showModal ? " translate-x-0" : "translate-x-full"
+        isModalVisible ? " translate-x-0" : "translate-x-full"
       } fixed z-50 right-0 top-0 h-full w-full bg-gray-500 bg-opacity-30  animate-fadeIn transform duration-500`}
     >
       <div className="fixed right-0 bg-white  h-full overflow-y-auto duration-500 animate-slideIn flex flex-col justify-between  sm:w-full md:w-2/5 lg:w-4/12 xl:w-1/4 ">
@@ -45,7 +47,7 @@ export default function CartModal() {
               </div>
               <div>
                 <button
-                  onClick={() => setShowModal(false)}
+                  onClick={() => dispatch(hideModal())}
                   className="btn btn-close p-4 text-xl text-gray-400"
                 >
                   <CancelIcon htmlColor="white" />

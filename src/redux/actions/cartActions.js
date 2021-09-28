@@ -4,7 +4,7 @@ import {
   DECREASE_PRODUCT_QUANTITY_IN_CART,
   INCREASE_PRODUCT_QUANTITY_IN_CART,
   REMOVE_PRODUCT_FROM_CART,
-} from "../actionTypes/cartActions";
+} from "../actionTypes/cartActionTypes";
 
 export function addProduct(product) {
   return {

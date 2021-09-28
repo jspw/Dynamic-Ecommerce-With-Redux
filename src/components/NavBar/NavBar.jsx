@@ -1,13 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CartModal from "../Cart/CartModal";
-import { ModalContext } from "../../Context/ModalContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { hideModal, showModal } from "../../redux/actions/modalActions";
 
 export default function NavBar() {
   const { totalProducts } = useSelector((state) => state.cart);
   const [showMobileOption, setShowMobileOption] = useState(false);
-  const { setShowModal } = useContext(ModalContext);
+  const { isModalVisible } = useSelector((state) => state.modal);
+
+  const dispatch = useDispatch();
 
   function toggleHamburgerMenu() {
     setShowMobileOption(!showMobileOption);
@@ -15,7 +17,7 @@ export default function NavBar() {
   useEffect(function () {
     window.onclick = function (event) {
       if (event.target.id === "modal") {
-        setShowModal(false);
+        dispatch(hideModal());
       }
     };
   });
@@ -41,7 +43,7 @@ export default function NavBar() {
         <div className="flex flex-row space-x-2 xs:space-x-0">
           <div className="xs:fixed xs:top-0 xs:right-0 xs:p-2">
             <button
-              onClick={() => setShowModal(true)}
+              onClick={() => dispatch(showModal())}
               className="relative flex mt-2  "
             >
               <svg className="flex-1 w-8 h-8 fill-current">
