@@ -1,10 +1,9 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import ReactSearchAutocomplete from "react-search-autocomplete/dist/components/ReactSearchAutocomplete";
-import { ShopContext } from "../../Context/ShopContext";
 
 export default function SearchBar() {
-  const { products } = useContext(ShopContext);
+  const { products } = useSelector((state) => state.products);
   const history = useHistory();
 
   return (

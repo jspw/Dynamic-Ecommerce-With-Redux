@@ -1,8 +1,10 @@
-import { useContext } from "react";
-import { CategoryContext } from "../../../Context/CategoryContext";
+import { useSelector } from "react-redux";
+import { getCategories } from "../../../utility/product/productActions";
 import Category from "./Category";
 export default function Categories() {
-  const { categories } = useContext(CategoryContext);
+  const { products } = useSelector((state) => state.products);
+
+  const categories = getCategories(products);
 
   return (
     <div className=" mt-4 space-y-2 justify-self-center">

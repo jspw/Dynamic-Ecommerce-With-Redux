@@ -5,18 +5,21 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { Link } from "react-router-dom";
 import * as localStore from "../../utility/services/localStorage/localStore";
 import { ModalContext } from "../../Context/ModalContext";
+import { useSelector } from "react-redux";
 
 export default function CartModal() {
-  const cart = localStore.getCart();
+  const { totalProducts, payableAmount, totalQuantity } = useSelector(
+    (state) => state.cart
+  );
   const { showModal, setShowModal } = useContext(ModalContext);
   const [isPromoValid, setPromoValid] = useState(false);
 
   function saveOrder() {
     const orderCheckout = {
-      totalItems: cart.totalQuantity.length,
+      totalItems: totalQuantity,
       subTotal: isPromoValid
-        ? Math.round(cart.payableAmount) - 100
-        : Math.round(cart.payableAmount),
+        ? Math.round(payableAmount) - 100
+        : Math.round(payableAmount),
       discount: 100,
     };
     localStore.saveOrder(orderCheckout);
@@ -37,7 +40,7 @@ export default function CartModal() {
               <div className="p-4 flex flex-row items-center space-x-2">
                 <LocalMallIcon />
                 <div className="text-lg font-semibold">
-                  {cart ? cart.totalProducts : 0} items
+                  {totalProducts} items
                 </div>
               </div>
               <div>
@@ -54,7 +57,7 @@ export default function CartModal() {
           <CartItems />
         </div>
 
-        {cart && (
+        {totalProducts > 0 ? (
           <div className="flex flex-col sticky bottom-0">
             <div className="bg-gray-200 ">
               <p className="text-green-500 mb-3 ml-1 mr-1 mt-2 text-center">
@@ -82,11 +85,11 @@ export default function CartModal() {
               to={{
                 pathname: "/checkout",
                 order: {
-                  totalItems: cart.size,
+                  totalItems: totalProducts,
                   subTotal: 0,
-                  // isPromoValid
-                  //   ? Math.round(cart.payableAmount) - 100
-                  //   : Math.round(cart.payableAmount),
+                  totalProducts: isPromoValid
+                    ? Math.round(payableAmount) - 100
+                    : Math.round(payableAmount),
                   discount: 100,
                 },
               }}
@@ -96,11 +99,13 @@ export default function CartModal() {
               <p className="font-bold">
                 $
                 {isPromoValid
-                  ? Math.round(cart.payableAmount) - 100
-                  : Math.round(cart.payableAmount)}
+                  ? Math.round(payableAmount) - 100
+                  : Math.round(payableAmount)}
               </p>
             </Link>
           </div>
+        ) : (
+          ""
         )}
       </div>
     </div>

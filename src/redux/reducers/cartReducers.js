@@ -50,7 +50,7 @@ export default function cartReducer(state = initialState, action) {
     }
     case REMOVE_PRODUCT_FROM_CART: {
       const updatedCart = state;
-      delete updatedCart.products[payload];
+      delete updatedCart.products[action.payload];
       const cartProducts = {
         ...updatedCart.products,
       };
@@ -59,7 +59,7 @@ export default function cartReducer(state = initialState, action) {
 
     case INCREASE_PRODUCT_QUANTITY_IN_CART: {
       const updatedCart = state;
-      updatedCart.products[payload].quantity++;
+      updatedCart.products[action.payload].quantity++;
       const cartProducts = {
         ...updatedCart.products,
       };
@@ -69,7 +69,9 @@ export default function cartReducer(state = initialState, action) {
 
     case DECREASE_PRODUCT_QUANTITY_IN_CART: {
       const updatedCart = state;
-      updatedCart.products[payload].quantity--;
+      updatedCart.products[action.payload].quantity--;
+      if (updatedCart.products[action.payload].quantity === 0)
+        delete updatedCart.products[action.payload];
       const cartProducts = {
         ...updatedCart.products,
       };

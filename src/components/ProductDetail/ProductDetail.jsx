@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { ShopContext } from "../../Context/ShopContext";
 import CartAction from "../Products/Product/CartAction";
 import Rating from "../Rating/Rating";
 import Spinner from "../Spinner/Spinner";
@@ -10,25 +9,9 @@ import Spinner from "../Spinner/Spinner";
 export default function ProductDetail() {
   const { title } = useParams();
 
-  const { products } = useContext(ShopContext);
+  const { products } = useSelector((state) => state.products);
 
-  const [product, setProduct] = useState(
-    (products && products.filter((prod) => prod.title === title)[0]) || null
-  );
-
-  useEffect(
-    function () {
-      if (products && !product) {
-        for (let i = 0; i < products.length; i++) {
-          if (products[i] === title) {
-            setProduct(products[i]);
-            break;
-          }
-        }
-      }
-    },
-    [products, title, product]
-  );
+  const product = products.filter((prod) => prod.title === title)[0];
 
   return product ? (
     <div className="h-screen">

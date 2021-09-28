@@ -2,7 +2,6 @@ import {
   FETCH_PRODUCTS_FAILURE,
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
-  GET_PRODUCTS,
 } from "../actionTypes/productActions";
 
 function stateFormatter(loading, products, error) {

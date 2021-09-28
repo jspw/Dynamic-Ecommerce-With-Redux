@@ -6,7 +6,7 @@ import {
   REMOVE_PRODUCT_FROM_CART,
 } from "../actionTypes/cartActions";
 
-export function AddProduct(product) {
+export function addProduct(product) {
   return {
     type: ADD_PRODUCT_TO_CART,
     payload: product,

@@ -1,22 +1,18 @@
-import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Products from "../Products/Products";
-import { ShopContext } from "../../Context/ShopContext";
+import { useSelector } from "react-redux";
 
 export default function Category() {
   const { category } = useParams();
-  const { products: allProducts } = useContext(ShopContext);
-  const [products, setProducts] = useState(null);
+  const {
+    products: allProducts,
+    error,
+    loading,
+  } = useSelector((state) => state.products);
 
-  useEffect(
-    function () {
-      allProducts &&
-        setProducts(
-          allProducts.filter((product) => product.category === category)
-        );
-    },
-    [allProducts, category]
+  const products = allProducts.filter(
+    (product) => product.category === category
   );
 
   return (
@@ -28,7 +24,7 @@ export default function Category() {
         <p className="text-blue-300">/</p>
         <p className="text-gray-400">{category}</p>
       </div>
-      <Products products={products} />
+      <Products products={products} loading={loading} error={error} />
     </div>
   );
 }

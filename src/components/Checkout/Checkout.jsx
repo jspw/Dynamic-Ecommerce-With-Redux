@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
 import Address from "./Address";
 import OrderPreview from "./OrderPreview";
-import { cartActionTypes } from "../../utility/cart/cartActionTypes";
-import handleCart from "../../utility/cart/cartActions";
-import { useContext } from "react";
-import { CartContext } from "../../Context/CartContext";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../redux/actions/cartActions";
 
 export default function Checkout() {
-  const { setCartUpdated } = useContext(CartContext);
+  const dispatch = useDispatch();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -17,10 +15,7 @@ export default function Checkout() {
       </div>
 
       <Link
-        onClick={() => {
-          handleCart(cartActionTypes.CLEAR_CART);
-          setCartUpdated((pre) => !pre);
-        }}
+        onClick={() => dispatch(clearCart())}
         to={{
           pathname: "/order-complete",
           done: "done",
