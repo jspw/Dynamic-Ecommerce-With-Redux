@@ -4,6 +4,7 @@ import NavBar from "../components/NavBar/NavBar";
 import Footer from "../components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../redux/actions/productActions";
+import TopScroller from "../components/TopScroller/TopScroller";
 
 export default function Wrapper() {
   const { isUserOld } = useSelector((state) => state.user);
@@ -14,6 +15,7 @@ export default function Wrapper() {
 
   return (
     <BrowserRouter>
+      <TopScroller />
       <div className=" flex flex-col justify-between h-screen">
         <div>
           <NavBar />

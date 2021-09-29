@@ -22,16 +22,16 @@ export default function CartItem({ product }) {
         </div>
 
         <div className="space-y-2">
-          <div>
-            <div className="text-sm text-gray-500 font-serif">
-              {product.title}
-            </div>
+          <div></div>
+          <div className="text-sm text-gray-500 font-serif">
+            {product.title}
           </div>
+
           <div className="flex flex-row space-x-1 text-sm font-medium">
             <div className="">${product.price}</div>
             <div>x</div> <div>{product.quantity}</div>
           </div>
-          <div className="flex flex-row space-x-2 text-sm">
+          <div className="flex flex-row space-x-2 text-sm items-baseline">
             <button
               onClick={() => dispatch(decreaseProductQuantity(product.id))}
               className="border text-lg pl-3 pr-3"
