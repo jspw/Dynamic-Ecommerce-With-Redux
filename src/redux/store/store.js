@@ -10,6 +10,7 @@ import reducers from "../reducers";
 const persistConfig = {
   key: "reducers",
   storage,
+  blacklist : []
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
