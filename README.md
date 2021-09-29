@@ -16,7 +16,7 @@ So far, I have implemented ->
 - Order Complete Page (`/order-complete`)
 - 404 Error Page (`/*`)
 
-<p align='center'>Hosted on : <a href="https://dynamic-e-commerce.netlify.app/">Netlify</a></p>
+<p align='center'>Hosted on : <a href="https://redux-e-commerce.netlify.app/">Netlify</a></p>
 
 ## About Task
 
