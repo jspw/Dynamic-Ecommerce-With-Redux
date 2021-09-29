@@ -31,7 +31,7 @@ export default function CartItem({ product }) {
             <div className="">${product.price}</div>
             <div>x</div> <div>{product.quantity}</div>
           </div>
-          <div className="flex flex-row space-x-2 text-sm">
+          <div className="flex flex-row space-x-2 text-sm items-baseline">
             <button
               onClick={() => dispatch(decreaseProductQuantity(product.id))}
               className="border text-lg pl-3 pr-3"
